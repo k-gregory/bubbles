@@ -1,0 +1,15 @@
+.app {
+  height: 100vh;//TODO Test in Firefox
+  overflow-y: hidden;
+
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+}
+
+.app-content{
+  flex-grow: 1;
+
+  display: flex;
+  width: 100%;
+}

@@ -1,0 +1,25 @@
+@import "../../styles/constants";
+
+.time-line{
+  display: flex;
+  align-items: center;
+  background-color: $gray-darker;
+  color: $whity
+}
+
+.time-selection{
+  padding: 0.5em;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.active-time-selection{
+  background-color: $gray;
+}
+
+.current-date{
+  padding-right: 1em;
+  font-weight: 800;
+  flex-grow: 1;
+  text-align: right;
+}

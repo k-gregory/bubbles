@@ -1,0 +1,53 @@
+@import "../../styles/constants";
+@import "../../styles/util";
+
+$gap: 3px;
+$button-roundity: 15px;
+
+.bid-amount-selector{
+  @include darker-bg;
+  border-radius: $button-roundity;
+}
+
+.vline{
+  border: 1px solid $darkest;
+  width: 100%;
+}
+.hline{
+  border: 1px solid $darkest;
+}
+
+.info{
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+}
+
+.mod-buttons{
+  display: flex;
+}
+
+.mod-button{
+  @include text-value;
+  text-align: center;
+  width: 49%;
+  font-size:30px;
+  text-decoration: none;
+  outline: none;
+}
+
+.mod-button:hover{
+  background-color: $gray;
+}
+
+.plus{
+  @extend .mod-button;
+  font-weight: 700;
+  border-radius: 0 0 $button-roundity 0;
+}
+
+.minus{
+  @extend .mod-button;
+  font-weight: 800;
+  border-radius: 0 0 0 $button-roundity;
+}

@@ -5,7 +5,12 @@ import {App} from "./component/app/App";
 
 import './style.scss'
 
+import {Provider} from 'react-redux'
+import {store} from "./store";
+
 ReactDOM.render(
-    <App/>,
+    <Provider store={store}>
+        <App/>
+    </Provider>,
     document.getElementById("app")
 );

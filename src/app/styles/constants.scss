@@ -1,0 +1,29 @@
+@import "./colors";
+
+@mixin darkest-bg{
+  background-color: $darkest;
+}
+
+@mixin darker-bg{
+  background-color: $gray-darker;
+}
+
+@mixin dark-bg{
+  background-color: $darkgray;
+}
+
+@mixin text-description{
+  color: $gray;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+@mixin text-value{
+  color: $whity;
+  font-size: 20px;
+}
+
+@mixin green-text{
+  color: $green-darker;
+  font-size: 20px;
+}

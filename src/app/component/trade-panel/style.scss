@@ -1,0 +1,50 @@
+@import "../../styles/constants";
+
+$buy-border-radius: 15px;
+
+.trade-panel{
+  @include darkest-bg;
+
+  min-width: 11em;
+  padding: 0 2em;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.profit-money{
+  display: inline-block;
+  @include text-value;
+  padding-right: 1em;
+}
+
+.profit-percent{
+  display: inline-block;
+  @include green-text;
+}
+
+
+//TODO: Add pointer to the button
+.buy-button{
+  outline: none;
+  padding: 0.5em 0;
+  color: $whity;
+  font-size: 30px;
+  font-weight: 800;
+  text-decoration: none;
+  text-align: center;
+  border-radius: $buy-border-radius;
+  text-transform: uppercase;
+}
+
+.buy-open{
+  @extend .buy-button;
+  background-color: $green;
+}
+
+.buy-close{
+  @extend .buy-button;
+  font-size: 20px;
+  background-color: $red-darker;
+}

@@ -1,0 +1,9 @@
+@import "../../styles/constants";
+
+.graph{
+  background: no-repeat center url('../graph/globe.svg');
+  background-color: $darkgray;
+  background-size: contain;
+
+  flex-grow: 1;
+}

@@ -1,0 +1,39 @@
+:global{
+  @import "./styles/reset.css";
+  @import "./styles/constants"; //TODO: Is global import a best option?
+  @import "./styles/util";
+
+  body{
+    line-height: 1.4;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+  }
+
+  .darkest-bg{
+    @include darkest-bg
+  }
+
+  .darker-bg{
+    @include darker-bg
+  }
+
+  .dark-bg{
+    @include dark-bg
+  }
+
+  .text-description{
+    @include text-description
+  }
+
+  .text-value{
+    @include text-value
+  }
+
+  .green-text{
+    @include green-text
+  }
+
+  .flex-filler{
+    @include flex-filler
+  }
+}

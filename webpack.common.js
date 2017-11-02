@@ -27,7 +27,7 @@ module.exports = env => {
         plugins: [
             new CleanWebpackPlugin(outputPath, {allowExternal: true}),
             new HtmlWebpackPlugin({
-                title: "TempleDoc",
+                title: "Bubbles",
                 template: "src/index.html",
                 appMountId: "app",
                 mobile: true
@@ -37,6 +37,10 @@ module.exports = env => {
         ],
         module: {
             rules: [
+                {
+                    test: /\.svg$/,
+                    loader: 'url-loader'
+                },
                 {
                     test: /\.scss$/,
                     use: extractSass.extract({
