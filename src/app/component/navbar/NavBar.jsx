@@ -9,6 +9,8 @@ export const NavBar = (props)=>{
 
     return (
         <div className={style.navBar}>
+            <div>Breadcumb</div>
+            <div>Plus</div>
             <div className='flex-filler'/>
             <div className={style.balance}>
                 <div className={style.balanceCount}>${dollarText}</div>

@@ -7,3 +7,12 @@
 
   flex-grow: 1;
 }
+
+.graph > svg {
+  position: absolute;
+}
+
+.line {
+  stroke: $orange-darker;
+  stroke-width: 3px;
+}
