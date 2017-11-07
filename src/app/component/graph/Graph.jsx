@@ -14,7 +14,7 @@ export class Graph extends React.Component {
                 time: Date.now(),
                 value: props.currency
             }],
-            dismensions: {
+            dimensions: {
                 width: 1,
                 height: 1
             }
@@ -24,43 +24,57 @@ export class Graph extends React.Component {
     componentWillReceiveProps(newProps) {
         if (this.props.currency !== newProps.currency) {
             const now = Date.now();
-            let currencies = this.state.currencies.filter(d => d.time > (now - this.props.shownTime));
-            currencies.push({
+            const lastTime = now - this.props.shownTime;
+
+            const currencies = [{
                 time: now,
                 value: newProps.currency
-            });
+            }];
+            for (let i = this.state.currencies.length - 1; i >= 0; i--) {
+                currencies.push(this.state.currencies[i]);
+                if (this.state.currencies[i].time < lastTime) break;
+            }
+            currencies.reverse();
+
             this.setState({currencies});
-            this.x.domain([0, currencies.length - 1]);
+            this.x.domain([now - this.props.shownTime, now]);
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.dismensions !== prevState.dismensions) {
-            this.x.range([0, this.state.dismensions.width / 2]);
-            this.y.range([this.state.dismensions.height, 0]);
+        if (this.state.dimensions !== prevState.dimensions) {
+            this.x.range([0, this.state.dimensions.width / 2]);
+            this.y.range([this.state.dimensions.height, 0]);
 
         }
 
+        const now = Date.now();
+        this.x.domain([now - this.props.shownTime, now]);
 
-        const d = this.state.currencies;
-        const l = d.length;
+        const realData = this.state.currencies;
+        const l = realData.length;
 
-        this.p.datum(this.state.currencies);
+        const last = realData[l - 1];
+
+        const drawnData = [...realData, {
+            time: now,
+            value: last.value
+        }];
+        this.p.datum(drawnData);
         this.p.attr('d', this.area);
 
-        const value = d[l - 1].value;
-        const valueY = this.y(value);
+        const lastValueY = this.y(last.value);
 
-        const wantedY = this.state.dismensions.height / 2;
-        const needTransform = wantedY - valueY;
+        const wantedY = this.state.dimensions.height / 2;
+        const needTransform = wantedY - lastValueY;
 
-        this.area.y0(this.state.dismensions.height - needTransform);
+        this.area.y0(this.state.dimensions.height - needTransform);
         this.p.attr('transform', `translate(0,${needTransform})`)
     }
 
-    updateDismensions() {
+    updateDimensions() {
         this.setState({
-            dismensions: {
+            dimensions: {
                 width: parseInt(this.div.style('width'), 10),
                 height: parseInt(this.div.style('height'), 10)
             }
@@ -72,36 +86,47 @@ export class Graph extends React.Component {
         const svg = d3.select(this.svg);
         const g = svg.append("g");
 
-        this.updateDismensions();
+        this.updateDimensions();
 
         const f = () => {
             console.log("resize");
-            this.updateDismensions();
+            this.updateDimensions();
         };
+        //FIXME: May interfere with other components
         d3.select(window).on('resize', f);
         f();
 
-        this.x = d3.scaleLinear();
+        this.x = d3.scaleTime();
         this.y = d3.scaleLinear().domain([0, 1]);
 
         this.area = d3.area()
             .curve(d3.curveCardinal)
-            .x((d, i) => this.x(i))
+            .x((d, i) => this.x(d.time))
             .y1((d) => this.y(d.value));
 
         this.p = g.append("path")
             .datum(this.state.currencies)
             .attr('class', style.line)
             .attr("fill", "url(#Gradient2)")
+            //.attr("clip-path", "url(#cut-off-bottom)")
             .attr("d", this.area)
     }
 
+    componentWillUnmount() {
+        //FIXME: May interfere with other components
+        d3.select(window).on('resize', null)
+    }
+
     render() {
+        const {width, height} = this.state.dimensions;
+
         return (
             <div ref={r => this.container = r} className={style.graph}>
-                <svg width={this.state.dismensions.width} height={this.state.dismensions.height}
-                     ref={r => this.svg = r}>
+                <svg width={width} height={height} ref={r => this.svg = r}>
                     <defs>
+                        <clipPath id="cut-off-bottom">
+                            <rect x="0" y="0" width={width / 2} height={height}/>
+                        </clipPath>
                         <linearGradient id="Gradient1">
                             <stop className="stop1" offset="0%"/>
                             <stop className="stop3" offset="100%"/>

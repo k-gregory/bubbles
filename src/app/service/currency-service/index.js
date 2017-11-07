@@ -1,6 +1,6 @@
 //Calculates delay before new currency value is emitted
 function getCurrencyDelay() {
-    return (Math.random() + 0.1) * 200;
+    return (Math.random() + 0.5) * 200;
 }
 
 
