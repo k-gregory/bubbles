@@ -36,4 +36,8 @@
   .flex-filler{
     @include flex-filler
   }
+
+  .text-disabled {
+    @include text-disabled;
+  }
 }

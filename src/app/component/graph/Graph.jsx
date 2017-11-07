@@ -15,8 +15,8 @@ export class Graph extends React.Component {
                 value: props.currency
             }],
             dismensions: {
-                width: 0,
-                height: 0
+                width: 1,
+                height: 1
             }
         }
     }
@@ -36,10 +36,6 @@ export class Graph extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.dismensions !== prevState.dismensions) {
-            d3.select(this.svg)
-                .attr('width', this.state.dismensions.width)
-                .attr('height', this.state.dismensions.height);
-
             this.x.range([0, this.state.dismensions.width / 2]);
             this.y.range([this.state.dismensions.height, 0]);
 
@@ -103,7 +99,8 @@ export class Graph extends React.Component {
     render() {
         return (
             <div ref={r => this.container = r} className={style.graph}>
-                <svg ref={r => this.svg = r}>
+                <svg width={this.state.dismensions.width} height={this.state.dismensions.height}
+                     ref={r => this.svg = r}>
                     <defs>
                         <linearGradient id="Gradient1">
                             <stop className="stop1" offset="0%"/>
