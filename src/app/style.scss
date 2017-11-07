@@ -1,6 +1,6 @@
 :global{
   @import "./styles/reset.css";
-  @import "./styles/constants"; //TODO: Is global import a best option?
+  @import "./styles/constants";
   @import "./styles/util";
 
   body{
